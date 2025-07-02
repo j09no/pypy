@@ -49,7 +49,7 @@ st.markdown("""
     }
 
     .stButton > button:hover {
-        color: #ff4444 !important;
+        color: grey !important;
     }
 
     .stButton {
@@ -197,7 +197,7 @@ def display_score_counter(total_questions):
         ''', unsafe_allow_html=True)
 
     with col2:
-        if st.button("🔄 Reset Score", key="reset_score"):
+        if st.button(" Reset Score", key="reset_score"):
             keys_to_remove = [key for key in st.session_state.keys()
                               if key.startswith(("show_answer_", "selected_option_", "score_updated_", "pending_score_update_"))]
             for key in keys_to_remove:
@@ -206,34 +206,15 @@ def display_score_counter(total_questions):
             st.rerun()
 
 def main():
-    st.markdown('<div class="main-header">MCQ Quiz Application</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">QP</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="json-input-container">', unsafe_allow_html=True)
-    st.subheader("📝 Paste JSON Data")
+    st.subheader(" Paste JSON Data")
 
     json_input = st.text_area(
         "Paste your JSON data here:",
         height=200,
-        placeholder='''{
-    "title": "Quiz Title",
-    "sections": [
-        {
-            "heading": "Section 1",
-            "questions": [
-                {
-                    "question": "What is 2+2?",
-                    "options": {
-                        "a": "3",
-                        "b": "4",
-                        "c": "5",
-                        "d": "6"
-                    },
-                    "answer": "(b) 4"
-                }
-            ]
-        }
-    ]
-}'''
+        placeholder=''''''
     )
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -241,7 +222,7 @@ def main():
         parsed_data, error = parse_json_data(json_input)
 
         if error:
-            st.markdown(f'<div class="error-message">❌ {error}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="error-message">q {error}</div>', unsafe_allow_html=True)
         else:
             total_questions = count_total_questions(parsed_data)
             if total_questions > 0:
@@ -269,33 +250,9 @@ def main():
                         question_count += 1
     else:
         st.info("""
-        **How to use this application:**
-        1. Paste your JSON data in the text area above
-        2. Click on options to reveal answers and get your score
-        3. Supports sections or plain question lists
         """)
-        st.markdown("**Example JSON Structure:**")
-        example_json = {
-            "title": "Sample Quiz",
-            "sections": [
-                {
-                    "heading": "Biology Questions",
-                    "questions": [
-                        {
-                            "question": "Which of the following is a key feature of the class Osteichthyes?",
-                            "options": {
-                                "a": "Cartilaginous endoskeleton",
-                                "b": "Absence of an air bladder",
-                                "c": "Bony endoskeleton",
-                                "d": "Ventrally located mouth"
-                            },
-                            "answer": "(c) Bony endoskeleton"
-                        }
-                    ]
-                }
-            ]
-        }
-        st.json(example_json)
+        st.markdown("")
+        
 
 if __name__ == "__main__":
     main()
