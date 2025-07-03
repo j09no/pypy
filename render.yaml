@@ -3,5 +3,5 @@ services:
     name: mcq-quiz-app
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run main.py --server.port $PORT
+    startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0
     plan: free
